@@ -22,7 +22,9 @@ customTheme: "custom"
 
 ### Was ist Spring?
 
-test
+- Application Framework
+- bringt IoC (Inversion of Control)
+- bringt Dependency Injection
 
 --
 
@@ -31,9 +33,9 @@ test
 --
 
 ### [Spring Ökosystem](https://spring.io/projects)
-
-
-
+- Spring ist modular
+- alle Projekte sollten miteinander funktionieren
+<img src="resources\images\spring_ecosystem.png"/>
 ---
 
 # Spring-Boot
@@ -43,10 +45,30 @@ test
 --
 
 ### Was ist Spring-Boot?
+>"Takes an <strong>opinionated</strong> view of building production-ready Spring applications. Spring Boot favors <strong>convention over configuration</strong> and is designed to get you up and running as quickly as possible."
+<small>[https://projects.spring.io/spring-boot/](https://projects.spring.io/spring-boot/)</small>
+
+--
+<!-- .slide: style="text-align: left;" -->
+
+### Features
+- stand-alone Spring applications<!-- .element: class="fragment fade-up" -->
+- embedded Tomcat (keine WAR files nötig)<!-- .element: class="fragment fade-up" -->
+- <p>stellt <strong>opinionated 'starter' POMs</strong> um Maven Konfiguration zu vereinfachen</p><!-- .element: class="fragment fade-up" -->
+- automatisch konfiguriere Spring, wann immer möglich<!-- .element: class="fragment fade-up" -->
+- stellt "production ready" features wie Metrics, Health Checks und externe Konfiguration<!-- .element: class="fragment fade-up" -->
+- keine XML Konfiguration oder Code-Gernerierung notwendig<!-- .element: class="fragment fade-up" -->
+
+<small>https://projects.spring.io/spring-boot/</small>
 
 --
 
-### Wie baue ich eine Spring-Boot-Anwendung von 0 auf?
+<!-- .slide: style="text-align: left;" -->
+
+### Wie baue ich eine Spring-Boot-Anwendung von <b>0</b> auf?
+- [https://start.spring.io](https://start.spring.io)
+  
+[<img src="resources/images/start-spring-io.png" style="height:500px">](https://start.spring.io)
 
 --
 
