@@ -72,6 +72,7 @@ customTheme: "custom"
 [<img src="resources/images/start-spring-io.png" style="height:500px">](https://start.spring.io)
 
 --
+<!-- .slide: style="text-align: left;" -->
 
 <p id="task">TASK</p>
 Erstellt eine Spring-Boot Anwendung
@@ -92,6 +93,71 @@ Erstellt eine Spring-Boot Anwendung
 
 --
 
+
+<!-- .slide: data-background="resources/images/works_on_dev.png" data-background-size="auto 100%" -->
+
+--
+
+### Container VS. VM
+
+<img src="resources/images/DockerVsVm.png"/ style="with:100%;heigth:100%">
+
+--
+
+<!-- .slide: style="text-align: left;" -->
+<p id="task">TASK</p>
+
+`$ docker run hello-world`
+
+`$ docker run -p 8080:80 nginx`<!-- .element: class="fragment fade-up" -->
+
+--
+<!-- .slide: style="text-align: left;" -->
+### Begriffe
+#### Image & Layer
+
+ > "A Docker image is built up from a series of layers. Each layer represents an instruction in the image’s Dockerfile. Each layer except the very last one is read-only."
+
+<small>https://docs.docker.com/engine/userguide/storagedriver/imagesandcontainers/</small>
+
+--
+<!-- .slide: style="text-align: left;" -->
+### Begriffe
+#### Registry
+
+ > "A registry is a storage and content delivery system, holding named Docker images, available in different tagged versions."
+
+<small>https://docs.docker.com/registry/introduction/</small>
+--
+<!-- .slide: style="text-align: left;" -->
+### Begriffe
+#### Container
+
+> "The major difference between a container and an image is the top writable layer."
+
+<small>https://docs.docker.com/engine/userguide/storagedriver/imagesandcontainers/#container-and-layers</small>
+
+--
+
+<!-- .slide: style="text-align: left;" -->
+### Begriffe
+#### Docker Compose:
+- Tool zum definieren und ausführen von Multi-Container Definitionen
+
+
+#### Docker Machine:
+- Docker Host auf mehren Plattformen starten
+
+#### Docker Hub:
+- Dockers registry für Images
+
+--
+
+### Was macht Docker beim Start?
+<p class="todo">todo</p>
+
+--
+
 ### Wie setze ich von 0 an eine Dockerumgebung auf?
 
 --
@@ -99,6 +165,7 @@ Erstellt eine Spring-Boot Anwendung
 ### Wie verpacke ich meine Anwendung in Docker?
 
 --
+<!-- .slide: style="text-align: left;" -->
 
 <p id="task">TASK</p>
 

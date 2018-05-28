@@ -84,6 +84,7 @@ body {
 .reveal p.todo {
   font-weight: bolder;
   font-size: 100px;
+  text-transform: uppercase;
   color: red;
 }
 
@@ -114,6 +115,21 @@ body {
   text-shadow: none;
   word-wrap: break-word;
 }
+
+.reveal p#solution{
+  color: green;
+  margin: 0 0 20px 0;
+  font-family: "League Gothic", Impact, sans-serif;
+  font-weight: bold;
+  font-size: 1.55em;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  text-shadow: none;
+  word-wrap: break-word;
+}
+
+
 
 .reveal div#task{
   text-align: left
