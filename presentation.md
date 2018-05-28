@@ -29,13 +29,14 @@ customTheme: "custom"
 --
 
 ### Was mach Spring beim Start?
-
+<p class="todo">TODO</p>
 --
 
 ### [Spring Ökosystem](https://spring.io/projects)
 - Spring ist modular
 - alle Projekte sollten miteinander funktionieren
-<img src="resources\images\spring_ecosystem.png"/>
+[<img src="resources\images\spring_ecosystem.png"/>](https://spring.io/projects)
+
 ---
 
 # Spring-Boot
