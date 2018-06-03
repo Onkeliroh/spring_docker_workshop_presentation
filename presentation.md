@@ -56,9 +56,9 @@ customTheme: "custom"
 - stand-alone Spring applications<!-- .element: class="fragment fade-up" -->
 - embedded Tomcat (keine WAR files nötig)<!-- .element: class="fragment fade-up" -->
 - <p>stellt <strong>opinionated 'starter' POMs</strong> um Maven Konfiguration zu vereinfachen</p><!-- .element: class="fragment fade-up" -->
-- automatisch konfiguriere Spring, wann immer möglich<!-- .element: class="fragment fade-up" -->
-- stellt "production ready" features wie Metrics, Health Checks und externe Konfiguration<!-- .element: class="fragment fade-up" -->
-- keine XML Konfiguration oder Code-Gernerierung notwendig<!-- .element: class="fragment fade-up" -->
+- konfiguriert Spring automatisch, wann immer möglich<!-- .element: class="fragment fade-up" -->
+- stellt "production ready" Features wie Metrics, Health Checks und externe Konfiguration<!-- .element: class="fragment fade-up" -->
+- keine XML Konfiguration oder Code-Generierung notwendig<!-- .element: class="fragment fade-up" -->
 
 <small>https://projects.spring.io/spring-boot/</small>
 
@@ -79,7 +79,14 @@ Erstellt eine Spring-Boot Anwendung
 
 - Maven
 - Java8
-- Web Dependency
+- Dependencies:
+  - Web
+---
+
+# Testing Spring-Boot
+
+<img class="logo" src="resources/images/junit_logo.png"/>
+<img class="logo" src="resources/images/mockito_logo.png"/>
 
 ---
 
@@ -168,7 +175,7 @@ Erstellt eine Spring-Boot Anwendung
 <!-- .slide: style="text-align: left;" -->
 
 <p id="task">TASK</p>
-
+- erstellt ein `Dockerfile` und verpackt eure App
 
 --
 
@@ -179,8 +186,22 @@ Erstellt eine Spring-Boot Anwendung
 ### Java in Docker
 
 ---
+# Træfik 
+<img class="logo" src="resources/images/traefik.logo.png" alt="spring_logo"/>
+--
+## Was ist Træfik?
+--
+- HTTP reverse Proxy
+- Loadbalancer
+- unterstüzt Dock
+--
 
-# Testing Spring-Boot
+<!-- .slide: style="text-align: left;" -->
 
-<img class="logo" src="resources/images/junit_logo.png"/>
-<img class="logo" src="resources/images/mockito_logo.png"/>
+<p id="task">TASK</p>
+
+- ladet Træfik: `docker pull traefik`
+- erweitert euer docker-compose file
+
+_Powershell TIP_
+`$Env:COMPOSE_CONVERT_WINDOWS_PATHS=1`
