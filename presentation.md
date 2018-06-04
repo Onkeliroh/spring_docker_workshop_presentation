@@ -13,6 +13,15 @@ customTheme: "custom"
 
 <small>Created by Daniel Pollack</small>
 
+--
+
+# Disclaimer
+- keine Zertifikate
+- kein XML
+- learning by doing Ansatz
+- keine Kaufentscheidungen wegen mir
+- Spring/Docker entwickelt sich zu schnell um aktuell zu sein
+
 ---
 
 # Spring 
@@ -22,14 +31,109 @@ customTheme: "custom"
 
 ### Was ist Spring?
 
-- Application Framework
-- bringt IoC (Inversion of Control)
-- bringt Dependency Injection
+- Application Framework<!-- .element: class="fragment fade-up" -->
+- bringt IoC (Inversion of Control)<!-- .element: class="fragment fade-up" -->
+- bringt Dependency Injection<!-- .element: class="fragment fade-up" -->
 
 --
 
 ### Was mach Spring beim Start?
-<p class="todo">TODO</p>
+- erstellen aller notwendigen Beans<!-- .element: class="fragment fade-up" -->
+- Autowiring/Injecting der Dependencies<!-- .element: class="fragment fade-up" -->
+- was immer der Entwickler will<!-- .element: class="fragment fade-up" -->
+
+--
+
+### Bean Lifecycle
+1. Framework factory lädt Bean Definition u. erstellt sie<!-- .element: class="fragment fade-up" -->
+2. Befüllen der Properties<!-- .element: class="fragment fade-up" -->
+3. Erfüllen von Abhängigkeiten<!-- .element: class="fragment fade-up" -->
+
+--
+
+### Beans erstellen
+```
+@Component
+public class Foo {}
+```
+
+```
+@Configuration
+public class SomeConfigurationClass{
+  @Bean
+  public SomeClass produceThisClass(){return new SomeClass();}
+}
+```
+
+--
+
+### Alternativen zu _@Component_
+- `@Service` 
+- `@Repository`
+- `@Controller`
+- `@RestController`
+- etc.
+note: Service ist Alias für Component
+
+--
+
+### Bean Scopes
+- Singleton (**_default_**)
+- Prototype
+- Request
+- Session
+- GlobalSession
+
+--
+
+### Abhängigkeiten bestimmen
+```
+@Autowired
+private ISomeClass someClass
+```
+
+````
+public class SomeOtherClass{
+
+  private ISomeClass someClass;
+
+  @Autowired
+  SomeOtherClass(ISomeClass someClass){
+    this.someClass=someClass;
+  }
+}
+```
+
+--
+
+### Autowire Varianten
+1. byName 
+  - Field Name ~= Bean Class Name
+2. byType 
+  - Field Type == Bean Type 
+3. byConstructor 
+  - byName | byType als Constructor Param
+
+--
+
+### Property Injection
+```
+@Value("${some.path.value}")
+public Long solutionToSomething;
+```
+
+```
+# src/java/resources/application.yml
+some:
+  path:
+    value: 42.0
+```
+
+```
+# src/java/resources/application.properties
+some.path.value=42.0
+```
+
 --
 
 ### [Spring Ökosystem](https://spring.io/projects)
@@ -50,6 +154,7 @@ customTheme: "custom"
 <small>[https://projects.spring.io/spring-boot/](https://projects.spring.io/spring-boot/)</small>
 
 --
+
 <!-- .slide: style="text-align: left;" -->
 
 ### Features
@@ -72,6 +177,7 @@ customTheme: "custom"
 [<img src="resources/images/start-spring-io.png" style="height:500px">](https://start.spring.io)
 
 --
+
 <!-- .slide: style="text-align: left;" -->
 
 <p id="task">TASK</p>
@@ -81,12 +187,146 @@ Erstellt eine Spring-Boot Anwendung
 - Java8
 - Dependencies:
   - Web
+
+--
+
+<!-- .slide: style="text-align: left;" -->
+
+<p id="task">TASK</p>
+- erstellt 
+  - einen `@RestController`
+  - eine Methode die mit HTTP Get aufgerufen wird (`@GetMapping`)
+    - return `"Hello World"`
+
+Zusatz:
+- Controller bezieht Grußformel aus der application property (`@Value`)
+
+--
+
 ---
 
 # Testing Spring-Boot
 
 <img class="logo" src="resources/images/junit_logo.png"/>
 <img class="logo" src="resources/images/mockito_logo.png"/>
+
+--
+
+- Unit-Test
+- Intergration Test
+
+--
+
+### Unit-Test
+```
+@Test
+public void stuff(){assertTrue(true);}
+```
+
+--
+
+### Integration Test
+````
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class TestClass{
+  @Test
+  public void someTest(){
+    ...
+  }
+}
+```
+
+--
+
+- **Mock** - eine fake Implementation einer Klasse
+- **Spy** - zum Teil ein Mock, erlaubt das überladen von Methoden der Klasse
+
+--
+
+### Run Tests
+- Unit Tests laufen mit Surefire Plugin (enabled by default)
+  - führt alle Test in Files mit Test Sufix aus (`*Test.java`)
+- Integration Tests laufen mit Failsafe Plugin (missing by default)
+  - führt alle Test in Files mit Sufix IT oder IntegerationTest aus (`*IT.java` | `*IntegrationTest.java`)
+
+--
+
+### Failsafe Plugin
+```
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-failsafe-plugin</artifactId>
+  <version>2.20</version>
+  <configuration>
+    <includes>
+      <include>**/*IT.java</include>
+    </includes>
+    <additionalClasspathElements>
+      <additionalClasspathElement>${basedir}/target/classes</additionalClasspathElement>
+    </additionalClasspathElements>
+    <parallel>none</parallel>
+  </configuration>
+  <executions>
+    <execution>
+      <goals>
+        <goal>integration-test</goal>
+        <goal>verify</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>
+```
+
+--
+
+<!-- .slide: style="text-align: left;" -->
+
+<p id="task">TASK</p>
+- Testet den Controller
+
+--
+
+```
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+```
+```
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@RunWith(SpringRunner.class)
+public class HelloControllerIT {
+
+	@LocalServerPort
+	public int port;
+
+	@Before
+	public void init() {
+		RestAssured.port = port;
+	}
+
+	@Test
+	public void testHelloControllerResponse() {
+		...
+	}
+}
+```
+
+--
+
+### Nützliche Annotationen für Tests
+- `@Test(expected=RuntimeExceptio.class)`
+- `@RunWith(SpringRunner.class)`
+- `@TestConfiguration`
+- `@MockBean`
+- `@SpyBean`
+- `@ActiveProfiles`
+- `@ContextConfiguration`
+- `@DirtiesContext`
+- `@Transactional`
 
 ---
 
@@ -119,6 +359,7 @@ Erstellt eine Spring-Boot Anwendung
 `$ docker run -p 8080:80 nginx`<!-- .element: class="fragment fade-up" -->
 
 --
+
 <!-- .slide: style="text-align: left;" -->
 ### Begriffe
 #### Image & Layer
@@ -128,6 +369,7 @@ Erstellt eine Spring-Boot Anwendung
 <small>https://docs.docker.com/engine/userguide/storagedriver/imagesandcontainers/</small>
 
 --
+
 <!-- .slide: style="text-align: left;" -->
 ### Begriffe
 #### Registry
@@ -135,7 +377,9 @@ Erstellt eine Spring-Boot Anwendung
  > "A registry is a storage and content delivery system, holding named Docker images, available in different tagged versions."
 
 <small>https://docs.docker.com/registry/introduction/</small>
+
 --
+
 <!-- .slide: style="text-align: left;" -->
 ### Begriffe
 #### Container
@@ -161,21 +405,67 @@ Erstellt eine Spring-Boot Anwendung
 --
 
 ### Was macht Docker beim Start?
-<p class="todo">todo</p>
+- Resourcen reservieren
+- Host Kernel an koppeln
+- Befehl ausführen
 
 --
 
 ### Wie setze ich von 0 an eine Dockerumgebung auf?
+- Installiere Docker auf einem Computer
+- Besorge eine Registry
 
 --
 
 ### Wie verpacke ich meine Anwendung in Docker?
+- In einem Dockerfile
+
 
 --
+
+### Dockerfile
+```
+FROM ibmjava:8-sfj-alpine
+
+CMD ["echo","hello world"]
+```
+
+--
+
+```
+FROM ibmjava:8-sfj-alpine
+
+ADD target/demo.jar demo.jar
+
+EXPOSE 8080
+
+CMD ["java","-jar","demo.jar"]
+```
+
+--
+
+### Dockerfile build
+- `$docker build .` <!-- .element: class="fragment fade-up" -->
+- `$docker build . -t greeter` <!-- .element: class="fragment fade-up" -->
+- `$docker build . -t greeter:stable` <!-- .element: class="fragment fade-up" -->
+
+--
+
 <!-- .slide: style="text-align: left;" -->
 
 <p id="task">TASK</p>
 - erstellt ein `Dockerfile` und verpackt eure App
+```
+<plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+    <configuration>
+        <finalName>${project.name}</finalName>
+        <goal>packaging</goal>
+        <mainClass>de.workshop.demo.DemoApplication</mainClass>
+    </configuration>
+</plugin>
+```
 
 --
 
@@ -206,7 +496,8 @@ Erstellt eine Spring-Boot Anwendung
 
 <p id="task">TASK</p>
 
-- ladet Træfik: `docker pull traefik`
+- besorgt Træfik: `docker pull traefik`
+  - tag ist egal
 - erweitert euer docker-compose file
 
 _Powershell TIP_
