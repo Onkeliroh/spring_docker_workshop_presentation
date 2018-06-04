@@ -186,14 +186,20 @@ Erstellt eine Spring-Boot Anwendung
 ### Java in Docker
 
 ---
+
 # Træfik 
 <img class="logo" src="resources/images/traefik.logo.png" alt="spring_logo"/>
+
 --
+
 ## Was ist Træfik?
+
 --
+
 - HTTP reverse Proxy
 - Loadbalancer
-- unterstüzt Dock
+- unterstützt Dock
+
 --
 
 <!-- .slide: style="text-align: left;" -->
