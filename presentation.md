@@ -563,6 +563,11 @@ docker-compose pull
 docker-compose push
 ```
 
+<!-- .slide: style="text-align: left;" -->
+
+<p id="task">TASK</p>
+- erstellt ein compose file
+
 ---
 
 # Spring Security
@@ -615,6 +620,3 @@ Hier bin ich und ich darf das.
 - besorgt Træfik: `docker pull traefik`
   - tag ist egal
 - erweitert euer docker-compose file
-
-_Powershell TIP_
-`$Env:COMPOSE_CONVERT_WINDOWS_PATHS=1`
