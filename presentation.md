@@ -156,7 +156,6 @@ some.path.value=42.0
 --
 
 <!-- .slide: style="text-align: left;" -->
-
 ### Features
 - stand-alone Spring applications<!-- .element: class="fragment fade-up" -->
 - embedded Tomcat (keine WAR files nötig)<!-- .element: class="fragment fade-up" -->
@@ -165,24 +164,18 @@ some.path.value=42.0
 - stellt "production ready" Features wie Metrics, Health Checks und externe Konfiguration<!-- .element: class="fragment fade-up" -->
 - keine XML Konfiguration oder Code-Generierung notwendig<!-- .element: class="fragment fade-up" -->
 
-<small>https://projects.spring.io/spring-boot/</small>
-
 --
 
 <!-- .slide: style="text-align: left;" -->
-
 ### Wie baue ich eine Spring-Boot-Anwendung von <b>0</b> auf?
-- [https://start.spring.io](https://start.spring.io)
-  
+- [https://start.spring.io](https://start.spring.io)  
 [<img src="resources/images/start-spring-io.png" style="height:500px">](https://start.spring.io)
 
 --
 
 <!-- .slide: style="text-align: left;" -->
-
 <p id="task">TASK</p>
 Erstellt eine Spring-Boot Anwendung
-
 - Maven
 - Java8
 - Dependencies:
@@ -191,7 +184,6 @@ Erstellt eine Spring-Boot Anwendung
 --
 
 <!-- .slide: style="text-align: left;" -->
-
 <p id="task">TASK</p>
 - erstellt 
   - einen `@RestController`
@@ -200,8 +192,6 @@ Erstellt eine Spring-Boot Anwendung
 
 Zusatz:
 - Controller bezieht Grußformel aus der application property (`@Value`)
-
---
 
 ---
 
@@ -451,6 +441,25 @@ CMD ["java","-jar","demo.jar"]
 
 --
 
+--
+
+### Docker Kommandos
+- docker run
+- docker build
+- docker logs
+- docker exec
+- docker stop
+- docker kill
+
+--
+
+### Docker Kommandos
+- docker rm
+- docker ps
+- docker top
+
+--
+
 <!-- .slide: style="text-align: left;" -->
 
 <p id="task">TASK</p>
@@ -474,6 +483,33 @@ CMD ["java","-jar","demo.jar"]
 --
 
 ### Java in Docker
+
+---
+
+# Spring
+<img class="logo" src="resources/images/spring-security_logo.png" alt="docker_logo"/>
+
+--
+
+### Authorization
+Darf der Nutzer das?
+
+### Authentication
+Hier bin ich und ich darf das.
+
+--
+
+### Spring-Security
+- bietet default Einstellungen
+  - Login Page
+  - User Roles
+
+--
+
+<!-- .slide: style="text-align: left;" -->
+
+<p id="task">TASK</p>
+- bindet Spring-Security in eure App ein
 
 ---
 
