@@ -37,7 +37,7 @@ customTheme: "custom"
 
 --
 
-### Was mach Spring beim Start?
+### Was macht Spring beim Start?
 - erstellen aller notwendigen Beans<!-- .element: class="fragment fade-up" -->
 - Autowiring/Injecting der Dependencies<!-- .element: class="fragment fade-up" -->
 - was immer der Entwickler will<!-- .element: class="fragment fade-up" -->
@@ -167,7 +167,7 @@ some.path.value=42.0
 --
 
 <!-- .slide: style="text-align: left;" -->
-### Wie baue ich eine Spring-Boot-Anwendung von <b>0</b> auf?
+### Wie baue ich eine Spring-Boot-Anwendung von <b>Null</b> auf?
 - [https://start.spring.io](https://start.spring.io)  
 [<img src="resources/images/start-spring-io.png" style="height:500px">](https://start.spring.io)
 
@@ -203,7 +203,7 @@ Zusatz:
 --
 
 - Unit-Test
-- Intergration Test
+- Integration Test
 
 --
 
@@ -236,9 +236,10 @@ public class TestClass{
 
 ### Run Tests
 - Unit Tests laufen mit Surefire Plugin (enabled by default)
-  - führt alle Test in Files mit Test Sufix aus (`*Test.java`)
+  - führt alle Tests in Files mit Test Sufix aus (`*Test.java`)
 - Integration Tests laufen mit Failsafe Plugin (missing by default)
-  - führt alle Test in Files mit Sufix IT oder IntegerationTest aus (`*IT.java` | `*IntegrationTest.java`)
+  - führt alle Tests in Files mit Sufix IT oder IntegerationTest aus 
+  (`*IT.java` | `*IntegrationTest.java`)
 
 --
 
@@ -335,7 +336,7 @@ public class HelloControllerIT {
 
 --
 
-### Container VS. VM
+### Container vs. VM
 
 <img src="resources/images/DockerVsVm.png"/ style="with:100%;heigth:100%">
 
@@ -383,7 +384,7 @@ public class HelloControllerIT {
 <!-- .slide: style="text-align: left;" -->
 ### Begriffe
 #### Docker Compose:
-- Tool zum definieren und ausführen von Multi-Container Definitionen
+- Tool zum Definieren und Ausführen von Multi-Container Definitionen
 
 
 #### Docker Machine:
@@ -396,12 +397,12 @@ public class HelloControllerIT {
 
 ### Was macht Docker beim Start?
 - Resourcen reservieren
-- Host Kernel an koppeln
+- Host Kernel ankoppeln
 - Befehl ausführen
 
 --
 
-### Wie setze ich von 0 an eine Dockerumgebung auf?
+### Wie setze ich von Null an eine Dockerumgebung auf?
 - Installiere Docker auf einem Computer
 - Besorge eine Registry
 
@@ -478,15 +479,93 @@ CMD ["java","-jar","demo.jar"]
 
 --
 
-### Docker best practices
+### Docker best practices?
+- Dockerfiles versionieren
+- .dockerignore File nutzen
+- nur einen Prozess/Befehl pro Container starten
+- zustandslos halten
+- schmale BaseImages nutzen
 
 --
 
+<!-- .slide: style="text-align: left;" -->
 ### Java in Docker
+#### Problem:
+
+JVM weiß nichts von Containern und sieht den Docker Host und seine Resourcen
+
+--
+
+<!-- .slide: style="text-align: left;" -->
+#### Lösung:
+- JVM Parameter 
+- Seit Java8 optional container aware
+
+--> 
 
 ---
 
-# Spring
+# Docker-Compose
+
+--
+
+### Problem
+```
+docker image pull redis:alpine
+docker image pull russmckendrick/moby-counter
+docker network create moby-counter
+docker container run -d --name redis --network moby-counter redis:alpine
+docker container run -d --name moby-counter --network moby-counter \
+  -p 8080:80 russmckendrick/moby-counter
+```
+
+--
+
+# Lösung
+
+````
+version: "3"
+services:
+  redis:
+    image: redis:alpine
+    volumes:
+    - redis_data:/data
+    restart: always
+  mobycounter:
+    depends_on:
+      - redis
+    image: russmckendrick/moby-counter
+    ports:
+      - "8080:80"
+    restart: always
+    volumes:
+      redis_data:
+```
+
+--
+
+```
+#build all images defined within compose file
+docker-compose build
+docker-compose build --no-cache
+
+#run all images defined within compose file
+docker-compose up
+docker-compose up -d
+
+#stop all running images
+docker-compose down
+
+#pull all images from remote registry
+docker-compose pull
+
+#push all images to remote registry
+docker-compose push
+```
+
+---
+
+# Spring Security
 <img class="logo" src="resources/images/spring-security_logo.png" alt="docker_logo"/>
 
 --
@@ -510,6 +589,7 @@ Hier bin ich und ich darf das.
 
 <p id="task">TASK</p>
 - bindet Spring-Security in eure App ein
+- legt einen weiteren Nutzer und meldet euch an
 
 ---
 
@@ -524,7 +604,7 @@ Hier bin ich und ich darf das.
 
 - HTTP reverse Proxy
 - Loadbalancer
-- unterstützt Dock
+- unterstützt Docker
 
 --
 
